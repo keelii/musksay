@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>What if you are Elon Musk?</title>
+    <style>
+        * { margin: 0; padding: 0 }
+        a { text-decoration: none; color: #999; }
+        a:hover { text-decoration: underline; }
+        body { font-family: TwitterChirp, -apple-system, "system-ui", "Segoe UI", Roboto, Helvetica, Arial, sans-serif }
+        h1 { padding: 2em 0; color: #999; font-size: 14px; font-weight: normal }
+        hr { border: none; height: 10px; background: url(https://user-images.githubusercontent.com/458894/165912125-f13fde63-483e-4f4b-964d-8d056cbddeb0.png) repeat-x left center; }
+        span { border: none; outline: none; }
+        main { border-top: 1px solid rgb(239, 243, 244);  border-bottom: 1px solid rgb(239, 243, 244); }
+        .main { width: 598px; margin: 0 auto; }
+        blockquote { margin-top: 12px; padding: 0 15px; font-size: 23px; color: rgb(15, 20, 25) }
+        .meta { padding: 0 15px; margin: 16px 0; font-size: 15px; color: rgb(83, 100, 113); }
+        .meta span { padding: 0 2px; }
+        .btn { text-align: center; padding: 2em 0; }
+        .btn a { font-size: 14px; background: transparent; border: 1px solid #999; height: 30px; line-height: 30px; padding: 5px 10px; border-radius: 3px; color: #666; }
+        .btn a:hover { text-decoration: none; }
+        .btn a.active { border-color: #1891ee; color: #1891ee; }
+        [contenteditable="true"] { user-modify: read-write-plaintext-only }
+    </style>
+</head>
+<body>
+
+<div class="main">
+    <h1><a href="https://github.com/keelii/musksay/issues/6">What if you are Elon Musk?</a></h1>
+    <main>
+        <div>
+            <img alt="musk" src="https://user-images.githubusercontent.com/458894/165873464-7438c025-f24b-4690-96d5-e350d027e2b1.png" />
+        </div>
+        <blockquote><span id="prefix"></span> <span autofocus contenteditable="plaintext-only">...</span></blockquote>
+        <div class="meta">
+            <script>
+              var d = new Date()
+              var h = d.getHours()
+              var m = d.getMinutes()
+              var t = h >= 12 ? 'PM' : 'AM'
+              var mm = { 1: "Jan", 2: "Feb", 3: "Mar", 4: "Apr", 5: "May", 6: "Jun", 7: "Jul", 8: "Aug", 9: "Sep", 10: "Oct", 11: "Nov", 12: "Dec", }
+              document.write(`${h}:${m > 9 ? m : "0" + m} ${t} · ${mm[d.getMonth()+1]} ${d.getDate()}, ${d.getFullYear()}`)
+            </script>
+            <span>·</span> Twitter for iPhone
+        </div>
+    </main>
+    <div class="btn">
+        <a href="/" id="btn-en" onclick="changeLang('en')">English</a>
+        <a href="?lang=zh_CN" id="btn-zh_CN" onclick="changeLang('zh_CN')">中文</a>
+    </div>
+<!--    <hr>-->
+    <script>
+      var lang = "en"
+      var data = {
+        en: {
+          title: "What if you are Elon Musk?",
+          prefix: "Next I’m buying",
+          issue: 8
+        },
+        zh_CN: {
+          title: "如果你是伊隆·马斯克？",
+          prefix: "接下来，我要买",
+          issue: 9
+        }
+      }
+      function changeLang(lang) {
+        lang = lang
+        document.title = data[lang].title
+        document.querySelector("h1 a").innerHTML = data[lang].title
+        document.querySelector("h1 a").href = "https://github.com/keelii/musksay/issues/" + data[lang].issue
+        document.getElementById("prefix").innerHTML = data[lang].prefix
+        document.querySelectorAll(".btn button").forEach(b => b.className = "")
+        document.getElementById("btn-" + lang).className = "active"
+        document.querySelector("[contenteditable=\"true\"]").focus()
+      }
+      function getParam(str) {
+        return str.split("&").reduce((prev, curr) => {
+          return {...prev, [curr.split("=")[0]]: curr.split("=")[1]}
+        }, {})
+      }
+      var query = location.search
+        ? getParam(location.search.substring(1))
+        : {lang: "en"}
+
+      changeLang(query.lang)
+    </script>
+</div>
+
+<script src="https://utteranc.es/client.js"
+        repo="keelii/musksay"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>
+
+</body>
+</html>
